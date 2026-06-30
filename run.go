@@ -60,10 +60,26 @@ func newCommand(version string, stdin io.Reader, stdout io.Writer) *cli.Command 
 		// os.Exit, so the exit code stays testable.
 		ExitErrHandler: func(context.Context, *cli.Command, error) {},
 		Flags: []cli.Flag{
-			&cli.IntFlag{Name: flagMaxArgs, Aliases: []string{"n"}, Usage: "use at most MAX-ARGS items per command line"},
-			&cli.StringFlag{Name: flagReplace, Aliases: []string{"I"}, Usage: "replace REPLACE-STR in INITIAL-ARGS with each input line; one run per line"},
-			&cli.BoolFlag{Name: flagNull, Aliases: []string{"0"}, Usage: "items are NUL-separated, not whitespace-separated"},
-			&cli.IntFlag{Name: flagMaxProcs, Aliases: []string{"P"}, Usage: "run up to MAX-PROCS command lines concurrently (output stays in input order)"},
+			&cli.IntFlag{
+				Name:    flagMaxArgs,
+				Aliases: []string{"n"},
+				Usage:   "use at most MAX-ARGS items per command line",
+			},
+			&cli.StringFlag{
+				Name:    flagReplace,
+				Aliases: []string{"I"},
+				Usage:   "replace REPLACE-STR in INITIAL-ARGS with each input line; one run per line",
+			},
+			&cli.BoolFlag{
+				Name:    flagNull,
+				Aliases: []string{"0"},
+				Usage:   "items are NUL-separated, not whitespace-separated",
+			},
+			&cli.IntFlag{
+				Name:    flagMaxProcs,
+				Aliases: []string{"P"},
+				Usage:   "run up to MAX-PROCS command lines concurrently (output stays in input order)",
+			},
 		},
 		Action: action(stdin, stdout),
 	}
