@@ -11,6 +11,8 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
+const name = "xargs"
+
 const (
 	flagMaxArgs  = "max-args"
 	flagReplace  = "replace"
@@ -43,7 +45,7 @@ func run(version string, args []string, stdin io.Reader, stdout, stderr io.Write
 	cmd.Writer = stdout
 	cmd.ErrWriter = stderr
 	if err := cmd.Run(context.Background(), args); err != nil {
-		_, _ = fmt.Fprintf(stderr, "xargs: %v\n", err)
+		_, _ = fmt.Fprintf(stderr, name+": %v\n", err)
 		return 1
 	}
 	return 0
@@ -51,7 +53,7 @@ func run(version string, args []string, stdin io.Reader, stdout, stderr io.Write
 
 func newCommand(version string, stdin io.Reader, stdout io.Writer) *cli.Command {
 	return &cli.Command{
-		Name:            "xargs",
+		Name:            name,
 		Version:         version,
 		Usage:           "build and execute command lines from standard input",
 		UsageText:       usageText,
